@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创新俱乐部 - AI科技</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #00fff2;
+            --secondary-color: #0066ff;
+            --accent-color: #ff00ea;
+            --dark-bg: #0a0a1f;
+            --card-bg: rgba(16, 16, 45, 0.7);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0c0;
+            --neon-shadow: 0 0 10px rgba(0, 255, 242, 0.5);
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            background-image: 
+                linear-gradient(rgba(10, 10, 31, 0.9), rgba(10, 10, 31, 0.9)),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 242, 0.1) 2px, rgba(0, 255, 242, 0.1) 4px);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: rgba(10, 10, 31, 0.95);
+            border-bottom: 1px solid var(--primary-color);
+            box-shadow: var(--neon-shadow);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            padding: 1rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            margin: 0;
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 255, 242, 0.3);
+        }
+
+        .top-nav {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .top-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .top-nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .top-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s ease;
+        }
+
+        .top-nav a:hover::after {
+            width: 100%;
+        }
+
+        .join-button {
+            background: linear-gradient(45deg, var(--accent-color), var(--secondary-color));
+            color: var(--text-primary) !important;
+            font-weight: bold;
+            padding: 0.8rem 1.8rem !important;
+            border-radius: 50px !important;
+            box-shadow: 0 0 20px rgba(255, 0, 234, 0.3);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .join-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(255, 0, 234, 0.5);
+        }
+
+        .join-button::after {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            .top-nav {
+                gap: 1.5rem;
+            }
+
+            .top-nav a {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.8rem 0;
+            }
+
+            .header h1 {
+                font-size: 1.2rem;
+            }
+
+            .top-nav {
+                display: none;
+            }
+        }
+
+        .nav {
+            padding: 1rem 0;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .nav a {
+            color: #e2e8f0;
+            text-decoration: none;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 8rem 0;
+            background: none;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, 
+                    rgba(0, 102, 255, 0.1) 0%, 
+                    rgba(0, 255, 242, 0.1) 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            z-index: -1;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 255, 242, 0.3);
+        }
+
+        .features {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 255, 242, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 255, 242, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 6rem 0;
+            background: rgba(30, 41, 59, 0.3);
+            position: relative;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 255, 242, 0.3);
+        }
+
+        .cta-text {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .button {
+            font-size: 1.2rem;
+            padding: 1.2rem 3rem;
+        }
+
+        footer {
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--glass-border);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* 基础响应式调整 */
+        @media (max-width: 768px) {
+            .nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 31, 0.95);
+                border-top: 1px solid var(--primary-color);
+                box-shadow: 0 -4px 20px rgba(0, 255, 242, 0.1);
+                z-index: 100;
+            }
+
+            .nav ul {
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 0.5rem 0;
+                margin: 0;
+            }
+
+            .nav a {
+                font-size: 0.9rem;
+                padding: 0.5rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            /* 为导航添加图标 */
+            .nav a::before {
+                font-family: "Material Icons";
+                content: attr(data-icon);
+                font-size: 1.5rem;
+                margin-bottom: 0.2rem;
+            }
+
+            .hero {
+                padding: 6rem 1rem;
+                min-height: 80vh;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+                padding: 0 1rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                padding: 0 1.5rem;
+            }
+
+            .features .container {
+                padding: 0 1rem;
+            }
+
+            .feature-card {
+                margin-bottom: 1.5rem;
+                padding: 1.5rem;
+            }
+
+            .advantage-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+
+            .advantage-item {
+                margin-bottom: 1rem;
+            }
+
+            .cta-section {
+                padding: 3rem 1rem;
+            }
+
+            .cta-list {
+                padding: 0 1.5rem;
+            }
+
+            .button {
+                width: 90%;
+                max-width: 300px;
+                text-align: center;
+            }
+
+            footer {
+                padding-bottom: 4rem; /* 为底部导航留出空间 */
+            }
+        }
+
+        /* 优化触摸体验 */
+        @media (hover: none) {
+            .feature-card:hover {
+                transform: none;
+            }
+
+            .button:hover {
+                transform: none;
+            }
+
+            .nav a::after {
+                display: none;
+            }
+        }
+
+        /* 适配不同屏幕尺寸 */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* 添加动态光效 */
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(0, 255, 242, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(0, 255, 242, 0.5); }
+            100% { box-shadow: 0 0 5px rgba(0, 255, 242, 0.3); }
+        }
+
+        .feature-card:hover {
+            animation: glow 2s infinite;
+            transform: translateY(-5px);
+        }
+
+        .hero-sub {
+            color: var(--text-secondary);
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .feature-card {
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .feature-card p {
+            line-height: 1.8;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .advantages h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+
+        .advantage-item {
+            text-align: left;
+            padding: 2rem;
+        }
+
+        .advantage-item h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .advantage-item h3::before {
+            content: '✨';
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 255, 242, 0.3);
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        .advantage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .advantage-item {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 255, 242, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .advantage-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .advantage-item h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .advantage-item p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .advantage-details {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+            border-top: 1px solid rgba(0, 255, 242, 0.1);
+            padding-top: 1rem;
+        }
+
+        .advantage-details li {
+            color: var(--text-secondary);
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .advantage-details li::before {
+            content: '✓';
+            color: var(--primary-color);
+        }
+
+        .advantage-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 255, 242, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .advantage-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .advantage-item {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        .advantage-summary {
+            margin-top: 4rem;
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 255, 242, 0.2);
+        }
+
+        .advantage-summary h3 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .summary-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .summary-item .number {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .summary-item .unit {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-top: -0.5rem;
+        }
+
+        .summary-item p {
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .hero-content {
+            margin: 3rem auto;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+
+        .hero-main {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+        }
+
+        .mission-box, .vision-box, .value-box {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 255, 242, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: left;
+            transition: transform 0.3s ease;
+        }
+
+        .mission-box:hover, .vision-box:hover, .value-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 255, 242, 0.2);
+        }
+
+        .mission-box h3, .vision-box h3, .value-box h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .mission-box h3::before { content: '🎯'; }
+        .vision-box h3::before { content: '🔭'; }
+        .value-box h3::before { content: '💫'; }
+
+        .value-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .value-list li {
+            color: var(--text-secondary);
+            margin: 0.8rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .value-list li::before {
+            content: '•';
+            color: var(--primary-color);
+        }
+
+        .hero-action {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .highlight-text {
+            color: var(--accent-color);
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        .hero-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            margin-top: 2rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--dark-bg);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 255, 242, 0.3);
+        }
+
+        .hero-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 255, 242, 0.5);
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .highlight-text {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+        }
+
+        .ai-solutions {
+            padding: 6rem 0;
+            background: linear-gradient(180deg, var(--dark-bg) 0%, rgba(16, 16, 45, 0.8) 100%);
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .solution-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 255, 242, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .solution-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .solution-card h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .solution-desc {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .solution-features {
+            list-style: none;
+            padding: 0;
+            border-top: 1px solid rgba(0, 255, 242, 0.1);
+            padding-top: 1rem;
+        }
+
+        .solution-features li {
+            color: var(--text-secondary);
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .solution-features li::before {
+            content: '→';
+            color: var(--primary-color);
+        }
+
+        .solutions-showcase {
+            margin-top: 4rem;
+            text-align: center;
+            padding: 3rem;
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 255, 242, 0.2);
+        }
+
+        .solutions-showcase h3 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .showcase-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .showcase-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .solutions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .showcase-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        .solutions-grid {
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .solutions-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        .project-showcase {
+            padding: 6rem 0;
+            background: linear-gradient(180deg, rgba(16, 16, 45, 0.8) 0%, var(--dark-bg) 100%);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(0, 255, 242, 0.2);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 31, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .demo-link, .github-link {
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .demo-link {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .github-link {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--primary-color);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-content h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .project-tags span {
+            padding: 0.3rem 0.8rem;
+            background: rgba(0, 255, 242, 0.1);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .project-grid {
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            box-shadow: 0 4px 20px rgba(0, 255, 242, 0.1);
+        }
+
+        .project-image {
+            height: 180px;
+        }
+
+        .project-content {
+            padding: 1.8rem;
+        }
+
+        .project-desc {
+            min-height: 3em;
+        }
+
+        @media (max-width: 768px) {
+            .project-grid {
+                gap: 1.5rem;
+            }
+            
+            .project-image {
+                height: 160px;
+            }
+        }
+
+        /* 优化移动端适配 */
+        @media (max-width: 768px) {
+            /* 调整标题大小 */
+            .section-header h2 {
+                font-size: 2rem;
+                padding: 0 1rem;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+                padding: 0 1.5rem;
+            }
+
+            /* 调整卡片间距和内边距 */
+            .feature-card,
+            .solution-card,
+            .advantage-item {
+                padding: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            /* 调整网格布局 */
+            .solutions-grid,
+            .advantage-grid,
+            .project-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
+            /* 调整文字大小 */
+            .feature-card h3,
+            .solution-card h3,
+            .advantage-item h3 {
+                font-size: 1.4rem;
+            }
+
+            .feature-card p,
+            .solution-desc,
+            .advantage-item p {
+                font-size: 1rem;
+            }
+
+            /* 优化按钮样式 */
+            .button,
+            .hero-button {
+                width: 90%;
+                max-width: 280px;
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+
+            /* 调整数据展示 */
+            .summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .summary-item .number {
+                font-size: 2.5rem;
+            }
+
+            /* 优化section间距 */
+            .hero,
+            .features,
+            .ai-solutions,
+            .project-showcase,
+            .advantages,
+            .cta-section {
+                padding: 4rem 0;
+            }
+
+            /* 调整项目卡片 */
+            .project-card {
+                margin: 0 1rem 1.5rem;
+            }
+
+            .project-image {
+                height: 160px;
+            }
+
+            /* 优化导航栏 */
+            .nav {
+                padding: 0.5rem 0;
+            }
+
+            .nav a {
+                font-size: 0.8rem;
+            }
+
+            .nav a::before {
+                font-size: 1.3rem;
+            }
+
+            /* 调整页脚 */
+            footer {
+                padding: 1.5rem 0 5rem;
+            }
+        }
+
+        /* 针对超小屏幕的优化 */
+        @media (max-width: 360px) {
+            .hero h2 {
+                font-size: 1.6rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav a {
+                font-size: 0.7rem;
+            }
+
+            .nav a::before {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* 优化触摸体验 */
+        @media (hover: none) {
+            .feature-card:hover,
+            .solution-card:hover,
+            .advantage-item:hover,
+            .project-card:hover {
+                transform: none;
+            }
+
+            .project-overlay {
+                opacity: 1;
+                background: rgba(10, 10, 31, 0.7);
+            }
+        }
+
+        .qr-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 31, 0.9);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .qr-modal.active {
+            display: flex;
+        }
+
+        .qr-content {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--primary-color);
+            text-align: center;
+            position: relative;
+            max-width: 90%;
+            width: 320px;
+            box-shadow: 0 0 30px rgba(0, 255, 242, 0.3);
+        }
+
+        .qr-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .qr-image {
+            width: 240px;
+            height: 240px;
+            margin: 0 auto 1rem;
+            background: transparent;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .qr-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .qr-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+            padding: 0.5rem;
+        }
+
+        .qr-close:hover {
+            color: var(--primary-color);
+        }
+
+        .hero-button, .join-button {
+            border: none;
+            cursor: pointer;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+
+        /* 确保按钮样式一致 */
+        .join-button {
+            background: linear-gradient(45deg, var(--accent-color), var(--secondary-color));
+            color: var(--text-primary) !important;
+            font-weight: bold;
+            padding: 0.8rem 1.8rem !important;
+            border-radius: 50px !important;
+            box-shadow: 0 0 20px rgba(255, 0, 234, 0.3);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* 优化移动端按钮样式 */
+        @media (max-width: 768px) {
+            .hero-button, .join-button {
+                width: auto;
+                min-width: 200px;
+            }
+        }
+
+        .cta-section .button {
+            font-size: 1.3rem;
+            padding: 1.2rem 4rem;
+            background: linear-gradient(45deg, var(--accent-color), var(--secondary-color));
+            color: var(--text-primary);
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(255, 0, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .cta-section .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px rgba(255, 0, 234, 0.5);
+        }
+
+        .cta-section .button:hover::before {
+            left: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .cta-section .button {
+                font-size: 1.1rem;
+                padding: 1rem 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <header class="header">
+        <div class="container">
+            <h1>全民AI创业俱乐部</h1>
+            <nav class="top-nav">
+                <a href="#mission">使命愿景</a>
+                <a href="#solutions">AI解决方案</a>
+                <a href="#advantages">加入优势</a>
+                <a href="#cases">成功案例</a>
+                <button class="join-button" onclick="showQRCode()">提交创业构想</button>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="nav">
+        <div class="container">
+            <ul>
+                <li><a href="#mission" data-icon="stars">使命</a></li>
+                <li><a href="#solutions" data-icon="rocket_launch">方案</a></li>
+                <li><a href="#advantages" data-icon="diamond">优势</a></li>
+                <li><a href="#cases" data-icon="trending_up">案例</a></li>
+                <li><a href="#contact" data-icon="edit_note">提交</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero" id="mission">
+        <div class="container">
+            <h2>让AI创新触手可及</h2>
+            <p class="hero-main">集结创新力，加速AI产业发展</p>
+            <div class="hero-content">
+                <div class="mission-box">
+                    <h3>我们的使命</h3>
+                    <p>帮助每一个怀揣AI梦想的创新者，
+                        突破技术壁垒，将创意转化为现实。
+                        甄选优质项目，提供免费MVP和DEMO支持，
+                        推动AI技术的普及与创新。</p>
+                </div>
+                <div class="vision-box">
+                    <h3>我们的愿景</h3>
+                    <p>打造中国最具影响力的AI创新孵化平台，
+                        连接创意与技术，培育未来AI独角兽，
+                        共同推动AI产业的健康发展。</p>
+                </div>
+                <div class="value-box">
+                    <h3>我们的价值观</h3>
+                    <ul class="value-list">
+                        <li>开放包容 - 欢迎所有AI创新想法</li>
+                        <li>技术赋能 - 提供专业技术支持</li>
+                        <li>共创共赢 - 携手打造AI生态</li>
+                        <li>普惠创新 - 降低AI创业门槛</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="hero-action">
+                <p class="highlight-text">✨ 优质项目可获得免费MVP/DEMO支持</p>
+                <p class="hero-sub">无需技术背景，7天内完成AI产品原型</p>
+                <button class="hero-button" onclick="showQRCode()">提交创业构想</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="feature-card">
+                <h3>快速验证创业想法</h3>
+                <p>什么是MVP？最小可行产品(Minimum Viable Product)，
+                    是验证您创业想法的最快途径。我们帮您在7天内打造出可以展示的产品原型，
+                    无需技术背景，从想法到作品，一站式服务。</p>
+            </div>
+            <div class="feature-card">
+                <h3>产品演示DEMO</h3>
+                <p>想要打动投资人或合作伙伴？我们帮您制作专业的演示DEMO，
+                    让您的创意更有说服力。从界面设计到功能演示，
+                    让您的想法更容易被理解和认可。</p>
+            </div>
+            <div class="feature-card">
+                <h3>全程技术支持</h3>
+                <p>不懂技术也没关系！我们配备专业技术团队，
+                    从需求分析到产品落地，提供全程指导和���，
+                    让您专注于商业创新和市场开拓。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="ai-solutions" id="solutions">
+        <div class="container">
+            <div class="section-header">
+                <h2>AI落地解决方案</h2>
+                <p class="section-subtitle">提供成熟的大模型应用解决方案，快速实现商业价值</p>
+            </div>
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <div class="solution-icon">🤖</div>
+                    <h3>大模型定制服务</h3>
+                    <div class="solution-content">
+                        <p class="solution-desc">基于主流大模型进行领域微调与能力增强</p>
+                        <ul class="solution-features">
+                            <li>垂直领域知识注入</li>
+                            <li>专业词表与知识库构建</li>
+                            <li>模型轻量化部署</li>
+                            <li>成本优化方案</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">🔍</div>
+                    <h3>RAG智能检索强</h3>
+                    <div class="solution-content">
+                        <p class="solution-desc">构建企业级知识库，提供精准的信息检索服务</p>
+                        <ul class="solution-features">
+                            <li>文档智能处理</li>
+                            <li>语义向量检索</li>
+                            <li>知识图谱构建</li>
+                            <li>多源数据整合</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">⚡</div>
+                    <h3>AIGC内容创作</h3>
+                    <div class="solution-content">
+                        <p class="solution-desc">多模态内容生成，提供一站式创作解决方案</p>
+                        <ul class="solution-features">
+                            <li>文案智能生成</li>
+                            <li>图片设计创作</li>
+                            <li>视频内容制作</li>
+                            <li>多语言本地化</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">🎯</div>
+                    <h3>智能工作流</h3>
+                    <div class="solution-content">
+                        <p class="solution-desc">自动化业务流程，提升运营效率</p>
+                        <ul class="solution-features">
+                            <li>流程自动化</li>
+                            <li>智能决策支持</li>
+                            <li>数据分析报告</li>
+                            <li>任务协同管理</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">🎯</div>
+                    <h3>AI营销获客</h3>
+                    <div class="solution-content">
+                        <p class="solution-desc">智能化营销系统，提升获客转化效率</p>
+                        <ul class="solution-features">
+                            <li>智能投放优化</li>
+                            <li>用户画像分析</li>
+                            <li>个性化推荐</li>
+                            <li>转化路径优化</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">🔮</div>
+                    <h3>智能决策系统</h3>
+                    <div class="solution-content">
+                        <p class="solution-desc">基于大模型的商业智能决策平台</p>
+                        <ul class="solution-features">
+                            <li>市场趋势分析</li>
+                            <li>风险评估预警</li>
+                            <li>竞品情报监控</li>
+                            <li>策略推荐优化</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="solutions-showcase" id="cases">
+                <h3>成功落地案例</h3>
+                <div class="showcase-grid">
+                    <div class="showcase-item">
+                        <span class="showcase-number">200%</span>
+                        <p>效率提升</p>
+                        <span class="showcase-desc">智能客服场景</span>
+                    </div>
+                    <div class="showcase-item">
+                        <span class="showcase-number">60%</span>
+                        <p>成本节省</p>
+                        <span class="showcase-desc">内容创作场景</span>
+                    </div>
+                    <div class="showcase-item">
+                        <span class="showcase-number">85%</span>
+                        <p>准确率</p>
+                        <span class="showcase-desc">知识检索场景</span>
+                    </div>
+                    <div class="showcase-item">
+                        <span class="showcase-number">300%</span>
+                        <p>营收增长</p>
+                        <span class="showcase-desc">智能营销场景</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="project-showcase">
+        <div class="container">
+            <div class="section-header">
+                <h2>创新项目展示</h2>
+                <p class="section-subtitle">我们孵化的优秀AI创新项目</p>
+            </div>
+            
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('path/to/tester-image.jpg');">
+                        <div class="project-overlay">
+                            <a href="https://jsjm1986.github.io/aigm/" target="_blank" class="demo-link">查看演示</a>
+                            <a href="https://github.com/jsjm1986/aigm" target="_blank" class="github-link">
+                                <i class="fab fa-github"></i> 源码
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>AI测试员的秘密</h3>
+                        <p class="project-desc">创新性的AI测试工具集合，帮助开发者快速验证AI模型性能</p>
+                        <div class="project-tags">
+                            <span>AI测试</span>
+                            <span>工具集</span>
+                            <span>性能评估</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('path/to/wenming-image.jpg');">
+                        <div class="project-overlay">
+                            <a href="https://jsjm1986.github.io/aiwenming00001/" target="_blank" class="demo-link">查看演示</a>
+                            <a href="https://github.com/jsjm1986/aiwenming" target="_blank" class="github-link">
+                                <i class="fab fa-github"></i> 源码
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>文明AI模拟器</h3>
+                        <p class="project-desc">基于大模型的文明发展模拟系统，探索AI驱动的社会演化</p>
+                        <div class="project-tags">
+                            <span>模拟器</span>
+                            <span>社会演化</span>
+                            <span>大模型应用</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('path/to/consciousness-image.jpg');">
+                        <div class="project-overlay">
+                            <a href="https://jsjm1986.github.io/ai-consciousness-game-0.1111/" target="_blank" class="demo-link">查看演示</a>
+                            <a href="https://github.com/jsjm1986/ai-consciousness-game" target="_blank" class="github-link">
+                                <i class="fab fa-github"></i> 源码
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>AI意识觉醒</h3>
+                        <p class="project-desc">沉浸式AI对游戏，探索人工智能意识的哲学思考</p>
+                        <div class="project-tags">
+                            <span>交互游戏</span>
+                            <span>AI对话</span>
+                            <span>哲学探索</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('path/to/nntown-image.jpg');">
+                        <div class="project-overlay">
+                            <a href="https://jsjm1986.github.io/nntown/" target="_blank" class="demo-link">查看演示</a>
+                            <a href="https://github.com/jsjm1986/nntown" target="_blank" class="github-link">
+                                <i class="fab fa-github"></i> 源码
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>神经网络小镇</h3>
+                        <p class="project-desc">可视化的神经网络学习平台，让AI学习变得简单有趣</p>
+                        <div class="project-tags">
+                            <span>教育平台</span>
+                            <span>可视化</span>
+                            <span>交互学习</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('path/to/comic-image.jpg');">
+                        <div class="project-overlay">
+                            <a href="https://jsjm1986.github.io/mh/" target="_blank" class="demo-link">查看演示</a>
+                            <a href="https://github.com/jsjm1986/mh" target="_blank" class="github-link">
+                                <i class="fab fa-github"></i> 源码
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>漫画故事创作平台</h3>
+                        <p class="project-desc">AI驱动的智能漫画创作系统，让创意快速可视化</p>
+                        <div class="project-tags">
+                            <span>AIGC</span>
+                            <span>创意创作</span>
+                            <span>视觉生成</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('path/to/kg-image.jpg');">
+                        <div class="project-overlay">
+                            <a href="https://jsjm1986.github.io/prompt2graph/" target="_blank" class="demo-link">查看演示</a>
+                            <a href="https://github.com/jsjm1986/prompt2graph" target="_blank" class="github-link">
+                                <i class="fab fa-github"></i> 源码
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>智能知识图谱系统</h3>
+                        <p class="project-desc">基于Prompt的知识图谱自动构建系统，实现知识的智能关联与推理</p>
+                        <div class="project-tags">
+                            <span>知识图谱</span>
+                            <span>智能推理</span>
+                            <span>Prompt工程</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('path/to/exam-image.jpg');">
+                        <div class="project-overlay">
+                            <a href="https://jsjm1986.github.io/kj/" target="_blank" class="demo-link">查看演示</a>
+                            <a href="https://github.com/jsjm1986/kj" target="_blank" class="github-link">
+                                <i class="fab fa-github"></i> 源码
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>试卷分析系统</h3>
+                        <p class="project-desc">智能化试卷分析与评估平台，提供深度教学洞察</p>
+                        <div class="project-tags">
+                            <span>教育科技</span>
+                            <span>数据分析</span>
+                            <span>智能评估</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('path/to/virtual-city-image.jpg');">
+                        <div class="project-overlay">
+                            <a href="https://jsjm1986.github.io/aiai/" target="_blank" class="demo-link">查看演示</a>
+                            <a href="https://github.com/jsjm1986/aiai" target="_blank" class="github-link">
+                                <i class="fab fa-github"></i> 源码
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>AI虚拟城市</h3>
+                        <p class="project-desc">基于AI的虚拟城市模拟系统，探索未来城市发展</p>
+                        <div class="project-tags">
+                            <span>虚拟现实</span>
+                            <span>城市规划</span>
+                            <span>AI模拟</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('path/to/story-video-image.jpg');">
+                        <div class="project-overlay">
+                            <a href="https://jsjm1986.github.io/mh3/" target="_blank" class="demo-link">查看演示</a>
+                            <a href="https://github.com/jsjm1986/mh3" target="_blank" class="github-link">
+                                <i class="fab fa-github"></i> 源码
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>故事转视频脚本系统</h3>
+                        <p class="project-desc">AI驱动的故事场景转换系统，自动生成专业视频脚本</p>
+                        <div class="project-tags">
+                            <span>内容换</span>
+                            <span>视频制作</span>
+                            <span>智能创作</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="advantages" id="advantages">
+        <div class="container">
+            <div class="section-header">
+                <h2>为什么加入我们</h2>
+                <p class="section-subtitle">加入全民AI创业俱乐部，让您的创业之路事半功倍</p>
+            </div>
+            <div class="advantage-grid">
+                <div class="advantage-item">
+                    <div class="advantage-icon">🏆</div>
+                    <h3>专业团队支持</h3>
+                    <p>汇集AI领域顶尖人才<br>
+                        提供全方位技术支持</p>
+                    <ul class="advantage-details">
+                        <li>AI算法专家团队</li>
+                        <li>产品经理一对一指导</li>
+                        <li>UI/UX设计师支持</li>
+                        <li>全栈开发工程师</li>
+                    </ul>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon">⚡</div>
+                    <h3>成熟的孵化体系</h3>
+                    <p>50+成功例背书<br>
+                        标准化的创业加速流程</p>
+                    <ul class="advantage-details">
+                        <li>创业项目诊断评估</li>
+                        <li>商业模式优化指导</li>
+                        <li>MVP快速开发(7天)</li>
+                        <li>市场验证与反馈(14天)</li>
+                    </ul>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon">🔧</div>
+                    <h3>技术资源赋能</h3>
+                    <p>丰富的技术资源库<br>
+                        快速启动您的AI项目</p>
+                    <ul class="advantage-details">
+                        <li>100+AI模型和组件</li>
+                        <li>云服务资源支持</li>
+                        <li>开发工具授权</li>
+                        <li>技术文档和培训</li>
+                    </ul>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon">🤝</div>
+                    <h3>创业生态赋能</h3>
+                    <p>强大的创业者社群<br>
+                        完整的创业支持体系</p>
+                    <ul class="advantage-details">
+                        <li>创业导师1对1指导</li>
+                        <li>投资机构直通车</li>
+                        <li>媒体资源对接</li>
+                        <li>行业资源共</li>
+                    </ul>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon">📈</div>
+                    <h3>持续成长支持</h3>
+                    <p>不止于技术支持<br>
+                        助力企业持续发展</p>
+                    <ul class="advantage-details">
+                        <li>定期技术培训</li>
+                        <li>创业经验分享会</li>
+                        <li>项目推广支持</li>
+                        <li>持续优化服务</li>
+                    </ul>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon">💎</div>
+                    <h3>商业价值提升</h3>
+                    <p>全方位提升项目价值<br>
+                        加速商业化落地</p>
+                    <ul class="advantage-details">
+                        <li>商业模式优化</li>
+                        <li>市场定位指导</li>
+                        <li>盈利模式设计</li>
+                        <li>品牌营销持</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="advantage-summary">
+                <h3>加入我们，您将获得：</h3>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <span class="number">7</span>
+                        <span class="unit">天</span>
+                        <p>完成MVP开发</p>
+                    </div>
+                    <div class="summary-item">
+                        <span class="number">50+</span>
+                        <span class="unit">个</span>
+                        <p>成功孵化案例</p>
+                    </div>
+                    <div class="summary-item">
+                        <span class="number">100+</span>
+                        <span class="unit">个</span>
+                        <p>AI模型支持</p>
+                    </div>
+                    <div class="summary-item">
+                        <span class="number">1000+</span>
+                        <span class="unit">位</span>
+                        <p>创业者社群</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>开启的AI创业之旅</h2>
+            <p class="cta-text">让我们一起，将创新理念转化为现实</p>
+            <button class="button" onclick="showQRCode()">加入我们</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 AI创新俱乐部. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="qr-modal" id="qrModal">
+        <div class="qr-content">
+            <span class="qr-close" onclick="hideQRCode()">×</span>
+            <h3>扫码提交创业构想</h3>
+            <div class="qr-image">
+                <img src="images/qr-code.png" alt="加入我们">
+            </div>
+            <p style="color: var(--text-secondary);">微信扫码，与我们交流您的创业想法</p>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">
+                我们将在24小时内回复您
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showQRCode() {
+            document.getElementById('qrModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function hideQRCode() {
+            document.getElementById('qrModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // 点击modal外部关闭
+        document.getElementById('qrModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideQRCode();
+            }
+        });
+    </script>
+</body>
+</html> 
